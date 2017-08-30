@@ -119,6 +119,7 @@ public class VideoEncoder implements GetCameraData {
         inputSurface = videoEncoder.createInputSurface();
       }
       prepareBlackImage();
+      Log.i(TAG, "VideoEncoder prepared");
       return true;
     } catch (IOException e) {
       Log.e(TAG, "create videoEncoder failed.");
@@ -249,6 +250,7 @@ public class VideoEncoder implements GetCameraData {
       thread.start();
     }
     running = true;
+    Log.i(TAG, "VideoEncoder started");
   }
 
   public void stop() {
@@ -269,6 +271,7 @@ public class VideoEncoder implements GetCameraData {
       videoEncoder = null;
     }
     spsPpsSetted = false;
+    Log.i(TAG, "VideoEncoder stopped");
   }
 
   @Override
@@ -276,6 +279,7 @@ public class VideoEncoder implements GetCameraData {
     if (running) {
       try {
         queue.add(buffer);
+        Log.i(TAG, "yv12 data send");
       } catch (IllegalStateException e) {
         queue.clear();
         Log.i(TAG, "frame discarded");
@@ -288,6 +292,7 @@ public class VideoEncoder implements GetCameraData {
     if (running) {
       try {
         queue.add(buffer);
+        Log.i(TAG, "nv21 data send");
       } catch (IllegalStateException e) {
         queue.clear();
         Log.i(TAG, "frame discarded");

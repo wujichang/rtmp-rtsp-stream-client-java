@@ -193,6 +193,7 @@ public class Camera1ApiManager implements Camera.PreviewCallback {
 
   @Override
   public void onPreviewFrame(byte[] data, Camera camera) {
+    Log.i(TAG, "generated frame data from camera");
     if (fpsController.fpsIsValid()) {
       if (imageFormat == ImageFormat.YV12) {
         getCameraData.inputYv12Data(data);

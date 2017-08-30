@@ -7,6 +7,7 @@ import android.media.MediaFormat;
 import android.media.MediaMuxer;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.SurfaceView;
 import com.pedro.encoder.audio.AudioEncoder;
 import com.pedro.encoder.audio.GetAacData;
@@ -31,6 +32,7 @@ import java.util.List;
 public abstract class BuilderBase
     implements GetAacData, GetCameraData, GetH264Data, GetMicrophoneData {
 
+  private final String TAG = "BuilderBase";
   private Camera1ApiManager cameraManager;
   protected VideoEncoder videoEncoder;
   protected MicrophoneManager microphoneManager;
@@ -194,6 +196,7 @@ public abstract class BuilderBase
 
   @Override
   public void getAacData(ByteBuffer aacBuffer, MediaCodec.BufferInfo info) {
+    Log.i(TAG, "AAC encoded");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2 && recording) {
       mediaMuxer.writeSampleData(audioTrack, aacBuffer, info);
     }
@@ -204,6 +207,7 @@ public abstract class BuilderBase
 
   @Override
   public void onSPSandPPS(ByteBuffer sps, ByteBuffer pps) {
+    Log.i(TAG, "SPS and PPS send");
     onSPSandPPSRtp(sps, pps);
   }
 
@@ -211,6 +215,7 @@ public abstract class BuilderBase
 
   @Override
   public void getH264Data(ByteBuffer h264Buffer, MediaCodec.BufferInfo info) {
+    Log.i(TAG, "H264 encoded");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2 && recording) {
       mediaMuxer.writeSampleData(videoTrack, h264Buffer, info);
     }

@@ -164,6 +164,7 @@ public class SrsFlvMuxer {
         while (!Thread.interrupted()) {
           try {
             SrsFlvFrame frame = mFlvTagCache.take();
+            Log.i(TAG, "send frame to server");
             if (frame.is_sequenceHeader()) {
               if (frame.is_video()) {
                 mVideoSequenceHeader = frame;
@@ -875,6 +876,7 @@ public class SrsFlvMuxer {
 
     private void flvFrameCacheAdd(SrsFlvFrame frame) {
       try {
+        Log.i(TAG, "send frame to rtmp library");
         mFlvTagCache.add(frame);
       } catch (IllegalStateException e) {
         mFlvTagCache.clear();

@@ -49,6 +49,7 @@ public class AudioEncoder implements GetMicrophoneData {
           MediaCodecInfo.CodecProfileLevel.AACObjectLC);
       audioEncoder.configure(audioFormat, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);
       running = false;
+      Log.i(TAG, "AudioEncoder prepared");
       return true;
     } catch (IOException e) {
       e.printStackTrace();
@@ -93,6 +94,7 @@ public class AudioEncoder implements GetMicrophoneData {
    */
   @Override
   public void inputPcmData(final byte[] buffer, final int size) {
+    Log.i(TAG, "pcm data send");
     if (Build.VERSION.SDK_INT >= 21) {
       getDataFromEncoderAPI21(buffer, size);
     } else {
